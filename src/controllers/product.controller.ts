@@ -13,12 +13,12 @@ export class ProductController {
 
 
 
-    @Post('searchprod')
-    getsearchedprod(@Body() val:any ){
-      console.log(val);
+    // @Post('searchprod')
+    // getsearchedprod(@Body() val:any ){
+    //   console.log(val);
      
-      return this.productservice.getsearchproducts(val);
-    }
+    //   return this.productservice.getsearchproducts(val);
+    // }
 
     @Post('product')
     @UseInterceptors(FileInterceptor('file',{

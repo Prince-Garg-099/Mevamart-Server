@@ -12,22 +12,22 @@ export class ProductService {
     constructor(@InjectModel(Product.name) private productModel: Model<Product>) {}
 
 
-    public async getsearchproducts(val:any){
+    // public async getsearchproducts(val:any){
 
-      const  searchproducts = await  this.productModel.find({
+    //   // const  searchproducts = await  this.productModel.find({
 
-        "$or":[
-          {
-            "name" : {$regex:val.val}
-          },
-          {
-            "desc": { $regex:val.val}
-          }
-        ]
-       });
-      console.log(searchproducts);
-      return searchproducts;
-    }
+    //   //   "$or":[
+    //   //     {
+    //   //       "name" : {$regex:val.val}
+    //   //     },
+    //   //     {
+    //   //       "desc": { $regex:val.val}
+    //   //     }
+    //   //   ]
+    //   //  });
+    //   console.log(searchproducts);
+    //   return searchproducts;
+    // }
 
    
 
