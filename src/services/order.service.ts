@@ -1,61 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateOrderDto } from 'src/dtos/create-order-dto';
-import { Order } from 'src/schemas/orders.schema';
+import { Order } from 'src/schemas/order.schema';
 
 @Injectable()
 export class OrderService {
-    constructor(@InjectModel(Order.name) private orderModel: Model<Order>) {}
+  constructor(@InjectModel(Order.name) private orderModel: Model<Order>) { }
 
 
-    public async createorder(newuser: CreateOrderDto) {
-        const order = await new this.orderModel(newuser);
-        return order.save();
-      }
-      async getallorders(){
-        console.log("getallorders");
-        const allproducts = await this.orderModel.find();
-        
-        return allproducts;
-      }
+  async createOrder(createOrderData: any): Promise<Order> {
+    const createdOrder = new this.orderModel(createOrderData);
+    return createdOrder.save();
+  }
 
-      
+  async getOrderById(orderId: string): Promise<Order> {
+    return this.orderModel.findById(orderId).exec();
+  }
 
-      async getallordersbyID(userId:any){
-        const allorders = await this.orderModel.find({userid:userId});
-        console.log(allorders)
-        return allorders;
-      }
+  async updateOrder(orderId: string, updateOrderData: any): Promise<Order> {
+    return this.orderModel.findByIdAndUpdate(orderId, updateOrderData, { new: true }).exec();
+  }
 
-      async getsingleorder(orderid:any){
-        const order = await this.orderModel.find({_id:orderid});
-        console.log(order)
-        return order;
-      }
+  async deleteOrder(orderId: string): Promise<Order> {
+    return this.orderModel.findByIdAndDelete(orderId).exec();
+  }
 
-      async setorderstatus(data:any){
+  async getAllOrders(): Promise<Order[]> {
+    return this.orderModel.find().exec();
+  }
 
-        const status = await this.orderModel.updateOne(
-          { _id: data.order_id },
-          {
-              $set: {
-                  order_status: data.statusValue
-              }
-          })
-        
-      }
-      
 
-      async cancelorder(data:any){
-        const status = await this.orderModel.updateOne(
-          { _id: data.order_id },
-          {
-              $set: {
-                  order_status: "Cancelled"
-              }
-          })
-      }
 
 
 }

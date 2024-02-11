@@ -6,14 +6,10 @@ import { UserModule } from './modules/user.module';
 import { OrderModule } from './modules/order.module';
 import { ProductModule } from './modules/product.module';
 import { AdminModule } from './modules/admin.module';
-
-
+require('dotenv').config();
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb+srv://deepak:jPHBx9TJ7X6cNayF@cluster0.5p5886h.mongodb.net/User_Details', {
-
-  
-  }), UserModule, OrderModule, ProductModule, AdminModule],
+  imports: [MongooseModule.forRoot(process.env.MONGODB_URI), UserModule,ProductModule,OrderModule,AdminModule],
   controllers: [AppController],
   providers: [AppService ],
 })

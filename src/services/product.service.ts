@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Model } from 'mongoose';
 import { CreateProductDto } from 'src/dtos/create-product-dto';
-import { Product } from 'src/schemas/products.schema';
+import { Product } from 'src/schemas/product.schema';
 const multer = require('multer');
 
 
@@ -12,46 +12,27 @@ export class ProductService {
     constructor(@InjectModel(Product.name) private productModel: Model<Product>) {}
 
 
-    // public async getsearchproducts(val:any){
 
-    //   // const  searchproducts = await  this.productModel.find({
+    async createProduct(createProductDto: any): Promise<Product> {
+        const createdProduct = new this.productModel(createProductDto);
+        return createdProduct.save();
+      }
+    
+      async getProductById(productId: string): Promise<Product> {
+        return this.productModel.findById(productId).exec();
+      }
+    
+      async updateProduct(productId: string, updateProductData: any): Promise<Product> {
+        return this.productModel.findByIdAndUpdate(productId, updateProductData, { new: true }).exec();
+      }
+    
+      async deleteProduct(productId: string): Promise<Product> {
+        return this.productModel.findByIdAndDelete(productId).exec();
+      }
 
-    //   //   "$or":[
-    //   //     {
-    //   //       "name" : {$regex:val.val}
-    //   //     },
-    //   //     {
-    //   //       "desc": { $regex:val.val}
-    //   //     }
-    //   //   ]
-    //   //  });
-    //   console.log(searchproducts);
-    //   return searchproducts;
-    // }
-
-   
-
-    public async create(newuser: CreateProductDto,imageUrl:string) {
-      const user = await new this.productModel();
-        user.mrp = newuser.mrp;
-        user.name = newuser.name;
-        user.desc = newuser.desc;
-        user.category = newuser.category;
-        user.sellprice = newuser.sellprice;
-        user.discount = newuser.discount;
-        user.sstatus = newuser.sstatus;
-        user.imageUrl = imageUrl;
-      return user.save();
-    }
-
-    async getallproducts(){
-      const allproducts = await this.productModel.find();
+      async getAllProducts(): Promise<Product[]> {
+        return this.productModel.find().exec();
+      }
       
-      return allproducts;
-    }
-
-   
-     
-
 
 }
