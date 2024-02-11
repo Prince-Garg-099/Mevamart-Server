@@ -21,9 +21,9 @@ export class OrderService {
     return this.orderModel.findByIdAndUpdate(orderId, updateOrderData, { new: true }).exec();
   }
 
-  async deleteOrder(orderId: string): Promise<Order> {
-    return this.orderModel.findByIdAndDelete(orderId).exec();
-  }
+  // async deleteOrder(orderId: string): Promise<Order> {
+  //   return this.orderModel.findByIdAndDelete(orderId).exec();
+  // }
 
   async getAllOrders(): Promise<Order[]> {
     return this.orderModel.find().exec();

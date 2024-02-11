@@ -26,9 +26,9 @@ export class ProductService {
         return this.productModel.findByIdAndUpdate(productId, updateProductData, { new: true }).exec();
       }
     
-      async deleteProduct(productId: string): Promise<Product> {
-        return this.productModel.findByIdAndDelete(productId).exec();
-      }
+      // async deleteProduct(productId: string): Promise<Product> {
+      //   return this.productModel.findByIdAndDelete(productId).exec();
+      // }
 
       async getAllProducts(): Promise<Product[]> {
         return this.productModel.find().exec();

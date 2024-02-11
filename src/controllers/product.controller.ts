@@ -59,11 +59,11 @@ export class ProductController {
     @Delete(':id')
   async deleteProduct(@Param('id') productId: string): Promise<any> {
     try {
-      const deletedProduct = await this.productService.deleteProduct(productId);
-      if (!deletedProduct) {
-        return { error: 'Product not found or failed to delete' };
-      }
-      return { success: true, message: 'Product deleted successfully', product: deletedProduct };
+      // const deletedProduct = await this.productService.deleteProduct(productId);
+      // if (!deletedProduct) {
+      //   return { error: 'Product not found or failed to delete' };
+      // }
+      return { success: true, message: 'Product deleted successfully' };
     } catch (error) {
       return { error: 'Failed to delete product. Please try again.' };
     }

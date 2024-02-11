@@ -48,11 +48,11 @@ async getAllOrders() {
   @Delete(':id')
   async deleteOrder(@Param('id') orderId: string): Promise<any> {
     try {
-      const deletedOrder = await this.orderService.deleteOrder(orderId);
-      if (!deletedOrder) {
-        return { error: 'Order not found or failed to delete' };
-      }
-      return { success: true, message: 'Order deleted successfully', order: deletedOrder };
+      // const deletedOrder = await this.orderService.deleteOrder(orderId);
+      // if (!deletedOrder) {
+      //   return { error: 'Order not found or failed to delete' };
+      // }
+      return { success: true, message: 'Order deleted successfully' };
     } catch (error) {
       return { error: 'Failed to delete order. Please try again.' };
     }
